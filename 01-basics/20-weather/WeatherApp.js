@@ -3,6 +3,7 @@ import { getWeatherData, WeatherConditionIcons } from './weather.service.ts'
 
 export default defineComponent({
   name: 'WeatherApp',
+
   setup() {
     const cards = getWeatherData()
     const icons = WeatherConditionIcons
@@ -25,18 +26,22 @@ export default defineComponent({
     return { cards, formatToCelsium, icons, formatPressure, isNightTime }
   },
 
+
   template: `
     <div>
       <h1 class="title">Погода в Средиземье</h1>
 
       <ul class="weather-list unstyled-list">
+
         <li v-for="card in cards" class="weather-card" :class="{ 'weather-card--night': isNightTime(card.current.dt, card.current.sunrise, card.current.sunset) }">
           <div v-if="card.alert" class="weather-alert">
+
             <span class="weather-alert__icon">⚠️</span>
             <span class="weather-alert__description">Королевская метеослужба короля Арагорна II: Предвещается наступление сильного шторма.</span>
           </div>
           <div>
             <h2 class="weather-card__name">
+
               {{card.geographic_name}}
             </h2>
             <div class="weather-card__time">
@@ -46,10 +51,12 @@ export default defineComponent({
           <div class="weather-conditions">
             <div class="weather-conditions__icon" :title="card.current.weather.description">{{icons[card.current.weather.id]}}</div>
             <div class="weather-conditions__temp">{{formatToCelsium(card.current.temp)}} °C</div>
+
           </div>
           <div class="weather-details">
             <div class="weather-details__item">
               <div class="weather-details__item-label">Давление, мм рт. ст.</div>
+
               <div class="weather-details__item-value">{{formatPressure(card.current.pressure)}}</div>
             </div>
             <div class="weather-details__item">
@@ -63,6 +70,7 @@ export default defineComponent({
             <div class="weather-details__item">
               <div class="weather-details__item-label">Ветер, м/с</div>
               <div class="weather-details__item-value">{{card.current.wind_speed}}</div>
+
             </div>
           </div>
         </li>
